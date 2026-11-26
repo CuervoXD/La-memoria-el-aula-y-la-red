@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Organizador gráfico · Memoria, aula y red · Docente Carolina Méndez Valcárcel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4efe6;
+      --sheet: #fffdf8;
+      --ink: #1c2430;
+      --muted: #5c6570;
+      --line: #ddd4c6;
+      --navy: #1a3348;
+      --trad: #7a3140;
+      --cond: #1f5c48;
+      --cone: #1d4f78;
+      --gold: #8d6a32;
+      --focus: #1a3348;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(141, 106, 50, 0.08), transparent 28%),
+        var(--paper);
+      font-family: "Source Sans 3", "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header.top {
+      padding: 28px 0 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .eyebrow {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .docente-top-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(122, 49, 64, 0.1);
+      color: var(--trad);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      font-weight: 700;
+    }
+    .source-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: end;
+      padding: 12px 0 20px;
+    }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 640;
+      font-size: clamp(36px, 5vw, 62px);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      margin: 8px 0 10px;
+    }
+    .teacher-subheading {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 16px;
+    }
+    .teacher-pill {
+      background: var(--navy);
+      color: #f7f3ea;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .teacher-fullname {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(20px, 2.5vw, 27px);
+      color: var(--trad);
+      font-weight: 640;
+      line-height: 1.1;
+    }
+    .teacher-context {
+      font-size: 14.5px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .lede {
+      font-size: 19px;
+      max-width: 38rem;
+      margin: 0;
+    }
+    .hero-photo {
+      position: relative;
+      min-height: 280px;
+      margin: 0;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      object-position: 62% 22%;
+      border-radius: 6px 72px 6px 6px;
+    }
+    .hero-photo figcaption {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      background: rgba(26, 51, 72, 0.9);
+      color: #f7f3ea;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+
+    /* Quick Navigation Jump Bar */
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 14px;
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      margin: 10px 0 24px;
+    }
+    .quick-nav-label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+    .quick-nav a {
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--navy);
+      background: #f7f3ea;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      transition: all 0.2s ease;
+    }
+    .quick-nav a:hover,
+    .quick-nav a:focus-visible {
+      background: var(--navy);
+      color: #f7f3ea;
+      border-color: var(--navy);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0 18px;
+    }
+    .filters p {
+      margin: 0 8px 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .filters button {
+      border: 1px solid var(--line);
+      background: var(--sheet);
+      color: var(--ink);
+      font: inherit;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .filters button[aria-pressed="true"] {
+      background: var(--navy);
+      color: #f7f3ea;
+      border-color: var(--navy);
+    }
+    .filters button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .model {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .model header {
+      color: #f7f3ea;
+      padding: 16px 16px 14px;
+    }
+    .model.trad header { background: var(--trad); }
+    .model.cond header { background: var(--cond); }
+    .model.cone header { background: var(--cone); }
+    .model header p {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .model header h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 26px;
+      line-height: 1.05;
+      margin: 4px 0 0;
+      font-weight: 640;
+    }
+    .model .photo {
+      height: 190px;
+      object-fit: cover;
+      object-position: center 40%;
+      width: 100%;
+    }
+    .model.trad .photo { object-position: 22% 18%; }
+    .motto {
+      margin: 0;
+      padding: 12px 16px 4px;
+      font-family: Fraunces, Georgia, serif;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .cells { padding: 8px 12px 12px; display: grid; gap: 8px; }
+    .cell {
+      border-left: 3px solid var(--line);
+      padding: 8px 10px 10px;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+    .model.trad .cell { border-left-color: var(--trad); }
+    .model.cond .cell { border-left-color: var(--cond); }
+    .model.cone .cell { border-left-color: var(--cone); }
+    .cell h3 {
+      margin: 0 0 4px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .cell p { margin: 0; }
+    body[data-focus="memoria"] .cell:not([data-dim="memoria"]),
+    body[data-focus="docente"] .cell:not([data-dim="docente"]),
+    body[data-focus="estudiante"] .cell:not([data-dim="estudiante"]),
+    body[data-focus="diferencias"] .cell:not([data-dim="diferencias"]) {
+      opacity: 0.28;
+    }
+    body[data-focus="memoria"] .cell[data-dim="memoria"],
+    body[data-focus="docente"] .cell[data-dim="docente"],
+    body[data-focus="estudiante"] .cell[data-dim="estudiante"],
+    body[data-focus="diferencias"] .cell[data-dim="diferencias"] {
+      background: #f7f1e4;
+    }
+
+    .model-links {
+      margin-top: auto;
+      padding: 0 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .model-links a {
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      width: fit-content;
+    }
+    .model.trad .model-links a { color: var(--trad); }
+    .model.cond .model-links a { color: var(--cond); }
+    .model.cone .model-links a { color: var(--cone); }
+
+    .shared {
+      margin: 14px 0 28px;
+      background: var(--navy);
+      color: #f7f3ea;
+      border-radius: 8px;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .shared span {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e4c98a;
+      font-weight: 700;
+    }
+    .shared p {
+      margin: 6px 0 0;
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.25;
+    }
+
+    section { margin: 24px 0 40px; }
+    .section-kicker {
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    section h2.block-title {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(28px, 3vw, 40px);
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .hint { margin: 0 0 16px; color: var(--muted); }
+
+    /* ========================================================
+       EVIDENCIAS MULTIMEDIA (FOTOS Y VIDEOS WHATSAPP)
+       ======================================================== */
+    .evidencias-wrapper {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .media-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .media-filter-bar p {
+      margin: 0 8px 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .media-btn {
+      border: 1px solid var(--line);
+      background: #f7f3ea;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .media-btn[aria-pressed="true"] {
+      background: var(--navy);
+      color: #f7f3ea;
+      border-color: var(--navy);
+    }
+
+    .sub-section-title {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 22px;
+      color: var(--navy);
+      margin: 0 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sub-section-title span.count-badge {
+      font-size: 12px;
+      font-family: "Source Sans 3", sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(141, 106, 50, 0.12);
+      padding: 2px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Videos Grid */
+    .videos-section {
+      margin-bottom: 32px;
+    }
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .video-card {
+      background: #fdfbf7;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .video-frame {
+      position: relative;
+      background: #0f1720;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #0f1720;
+    }
+    .video-info {
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 6px;
+    }
+    .video-info .tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .video-info h3 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 19px;
+      line-height: 1.25;
+      margin: 0;
+      color: var(--ink);
+    }
+    .video-info p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .video-badge-bar {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid #eee5d8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .video-badge-bar strong {
+      color: var(--navy);
+    }
+
+    /* Photos Grid */
+    .photos-section {
+      margin-top: 10px;
+    }
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .photo-card {
+      background: #fdfbf7;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+    .photo-card:hover,
+    .photo-card:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(26, 51, 72, 0.12);
+      border-color: var(--navy);
+    }
+    .photo-thumb-container {
+      position: relative;
+      height: 210px;
+      background: #eae2d3;
+      overflow: hidden;
+    }
+    .photo-thumb-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      transition: transform 0.35s ease;
+    }
+    .photo-card:hover .photo-thumb-container img {
+      transform: scale(1.05);
+    }
+    .photo-zoom-badge {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      background: rgba(26, 51, 72, 0.9);
+      color: #f7f3ea;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .photo-details {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 4px;
+    }
+    .photo-details .tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .photo-details h3 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 16px;
+      line-height: 1.25;
+      margin: 2px 0 4px;
+      color: var(--ink);
+    }
+    .photo-details p {
+      margin: 0;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* Lightbox Modal */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 32, 0.88);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .lightbox-overlay[aria-hidden="false"] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-box {
+      background: var(--sheet);
+      border-radius: 8px;
+      max-width: 920px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+      position: relative;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+    }
+    .lightbox-photo-wrap {
+      background: #0f1720;
+      max-height: 64vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 7px 7px 0 0;
+      overflow: hidden;
+    }
+    .lightbox-photo-wrap img {
+      max-width: 100%;
+      max-height: 64vh;
+      object-fit: contain;
+    }
+    .lightbox-info {
+      padding: 20px 26px 24px;
+    }
+    .lightbox-info .tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .lightbox-info h3 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 24px;
+      margin: 0 0 8px;
+      color: var(--navy);
+    }
+    .lightbox-info p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+    .lightbox-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(26, 51, 72, 0.9);
+      color: #f7f3ea;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s ease;
+    }
+    .lightbox-close-btn:hover,
+    .lightbox-close-btn:focus-visible {
+      background: var(--trad);
+    }
+
+    /* ========================================================
+       ENSAYO COMPLETO: EL CIMIENTO OLVIDADO EN LA EDUCACIÓN
+       ======================================================== */
+    .essay-card {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 38px 46px;
+      box-shadow: 0 6px 20px rgba(28, 36, 48, 0.04);
+    }
+    .essay-header-block {
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .essay-header-block .eyebrow {
+      margin-bottom: 8px;
+    }
+    .essay-main-title {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(30px, 3.8vw, 46px);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      margin: 8px 0 16px;
+      color: var(--navy);
+      font-weight: 640;
+    }
+    .essay-byline-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      background: #f7f1e4;
+      border-left: 4px solid var(--gold);
+      padding: 12px 18px;
+      border-radius: 0 6px 6px 0;
+    }
+    .byline-tag {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--navy);
+      background: #e9ded0;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .byline-author {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 21px;
+      font-weight: 640;
+      color: var(--trad);
+    }
+    .byline-location {
+      font-size: 14.5px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .essay-article-body {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #212b36;
+      max-width: 53rem;
+      margin: 0 auto;
+    }
+    .essay-article-body p {
+      margin: 0 0 18px;
+      text-align: justify;
+    }
+    .essay-lead-para::first-letter {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 4rem;
+      float: left;
+      line-height: 0.78;
+      margin: 8px 12px 0 0;
+      color: var(--navy);
+      font-weight: 640;
+    }
+    .essay-subheading {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 23px;
+      color: var(--navy);
+      margin: 34px 0 12px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      line-height: 1.25;
+      font-weight: 640;
+    }
+    .essay-pullquote {
+      margin: 26px 0;
+      padding: 18px 24px;
+      background: #f8f4ec;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+    }
+    .essay-pullquote blockquote {
+      margin: 0;
+      font-family: Fraunces, Georgia, serif;
+      font-size: 20px;
+      line-height: 1.4;
+      color: var(--navy);
+      font-style: italic;
+    }
+    .essay-pullquote cite {
+      display: block;
+      margin-top: 8px;
+      font-size: 12.5px;
+      font-style: normal;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .essay-table-bridge {
+      margin: 26px 0;
+      padding: 18px 22px;
+      background: #edf3f8;
+      border: 1px solid #c7d8e6;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .essay-table-bridge p {
+      margin: 0;
+      font-size: 15.5px;
+      color: var(--navy);
+      line-height: 1.4;
+    }
+    .essay-table-bridge a {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f7f3ea;
+      background: var(--cone);
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s ease;
+    }
+    .essay-table-bridge a:hover {
+      background: var(--navy);
+    }
+
+    .essay-closing-box {
+      background: #f7f2e7;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--trad);
+      border-radius: 0 8px 8px 0;
+      padding: 24px 28px;
+      margin: 32px 0 24px;
+    }
+    .essay-closing-box h4 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 21px;
+      color: var(--trad);
+      margin: 0 0 10px;
+      font-weight: 640;
+    }
+    .essay-closing-box p {
+      margin: 0 0 12px;
+    }
+    .essay-closing-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* References */
+    .essay-references-block {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--line);
+    }
+    .essay-references-block h3 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 22px;
+      color: var(--navy);
+      margin: 0 0 16px;
+    }
+    .references-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+    .reference-entry {
+      padding-left: 2.2rem;
+      text-indent: -2.2rem;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: #3b4550;
+      margin: 0;
+      text-align: left !important;
+    }
+
+    /* ========================================================
+       CAJA DE VIDEOS YOUTUBE (EXISTENTE)
+       ======================================================== */
+    .video-box {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .video-card-yt {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      background: #f7f3ea;
+      border-radius: 6px;
+      overflow: hidden;
+      min-height: 100%;
+      border: 1px solid transparent;
+    }
+    .video-card-yt:hover,
+    .video-card-yt:focus-visible {
+      border-color: var(--navy);
+    }
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #1c2430;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .play {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      background: #f7f3ea;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 3px;
+    }
+    .video-card-yt .meta { padding: 10px 10px 12px; }
+    .video-card-yt .tag {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tag.trad { color: var(--trad); }
+    .tag.cond { color: var(--cond); }
+    .tag.cone { color: var(--cone); }
+    .video-card-yt strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+    .video-card-yt em {
+      display: block;
+      margin-top: 6px;
+      font-style: normal;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ========================================================
+       PDF PREVIEW (EXISTENTE)
+       ======================================================== */
+    .pdf-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .pdf-copy {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .pdf-copy h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 30px;
+      margin: 6px 0 10px;
+      line-height: 1.05;
+    }
+    .pdf-copy p { margin: 0 0 12px; }
+    .pdf-copy a.file {
+      display: inline-block;
+      background: var(--navy);
+      color: #f7f3ea;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 4px;
+    }
+    .frame {
+      background: #d9d3c7;
+      border-radius: 8px;
+      min-height: 640px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .frame iframe {
+      width: 100%;
+      height: 640px;
+      border: 0;
+      background: white;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0 44px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-left {
+      max-width: 48rem;
+    }
+    .footer-right {
+      text-align: right;
+    }
+    .footer-right strong {
+      color: var(--trad);
+      font-size: 15px;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .board, .video-grid, .pdf-layout, .shared, .videos-grid {
+        grid-template-columns: 1fr;
+      }
+      .photos-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-photo img { height: 240px; border-radius: 6px; }
+      .frame, .frame iframe { min-height: 480px; height: 480px; }
+      .essay-card { padding: 24px 20px; }
+      .footer-right { text-align: left; }
+    }
+    @media (max-width: 720px) {
+      .video-grid { grid-template-columns: 1fr 1fr; }
+      .photos-grid { grid-template-columns: 1fr; }
+      .quick-nav { border-radius: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .cell, .photo-card { transition: none; }
+    }
+  </style>
+</head>
+<body data-focus="todas">
+  <div class="wrap">
+    <header class="top">
+      <p class="eyebrow">
+        <span>Organizador gráfico interactivo</span>
+        <span class="docente-top-badge">Docente: Carolina Méndez Valcárcel</span>
+      </p>
+      <p class="source-note">Ensayo pedagógico: El cimiento olvidado en la educación</p>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>La memoria, el aula y la red</h1>
+        <div class="teacher-subheading">
+          <span class="teacher-pill">Docente</span>
+          <span class="teacher-fullname">Carolina Méndez Valcárcel</span>
+          <span class="teacher-context">· Práctica pedagógica en Motavita y Samacá</span>
+        </div>
+        <p class="lede">Tres modelos leen el mismo problema de distinta manera. El enfoque tradicional guarda el saber dentro de la persona. El conductismo lo construye con práctica y refuerzo. El conectivismo lo reparte en redes y dispositivos. En los tres, aprender pide una estructura: currículo, programa o red.</p>
+      </div>
+      <figure class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1400&q=80" alt="Docente junto al pizarrón, con un estudiante que levanta la mano durante la clase">
+        <figcaption>Docente en clase, junto al pizarrón</figcaption>
+      </figure>
+    </section>
+
+    <!-- Barra de navegación rápida entre secciones -->
+    <nav class="quick-nav" aria-label="Navegación de secciones">
+      <span class="quick-nav-label">Ir a sección:</span>
+      <a href="#cuadro-comparativo">Cuadro comparativo</a>
+      <a href="#evidencias">Evidencias en aula (Fotos y Videos)</a>
+      <a href="#ensayo-completo">Ensayo: Cimiento olvidado</a>
+      <a href="#videos">Caja de videos YouTube</a>
+      <a href="#lectura">Lectura PDF</a>
+    </nav>
+
+    <!-- SECCIÓN 1: CUADRO COMPARATIVO INTERACTIVO -->
+    <section id="cuadro-comparativo" aria-labelledby="cuadro-title">
+      <div class="filters" role="toolbar" aria-label="Resaltar una dimensión del cuadro">
+        <p>Dimensión</p>
+        <button type="button" data-dim="todas" aria-pressed="true">Cuadro completo</button>
+        <button type="button" data-dim="memoria" aria-pressed="false">Concepción de la memoria</button>
+        <button type="button" data-dim="docente" aria-pressed="false">Rol del docente</button>
+        <button type="button" data-dim="estudiante" aria-pressed="false">Rol del estudiante</button>
+        <button type="button" data-dim="diferencias" aria-pressed="false">Diferencias críticas</button>
+      </div>
+      <p id="filter-status" class="hint">El cuadro completo está visible. Elige una dimensión para resaltar esa fila en los tres modelos.</p>
+
+      <div class="board">
+        <article class="model trad" id="tradicional">
+          <header>
+            <p>Enfoque mnémico</p>
+            <h2>Modelo tradicional</h2>
+          </header>
+          <img class="photo" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" alt="Docente junto al pizarrón, de pie frente a estudiantes en un aula">
+          <p class="motto">El saber se interioriza y se vuelve pensamiento propio.</p>
+          <div class="cells">
+            <div class="cell" data-dim="memoria">
+              <h3>Concepción de la memoria</h3>
+              <p>Producto cultural y herramienta interna indispensable para construir pensamiento superior y autonomía.</p>
+            </div>
+            <div class="cell" data-dim="docente">
+              <h3>Rol del docente</h3>
+              <p>Guía intelectual, modelo ético y transmisor estructurado del saber disciplinar.</p>
+            </div>
+            <div class="cell" data-dim="estudiante">
+              <h3>Rol del estudiante</h3>
+              <p>Sujeto disciplinado que escucha, estudia, ejercita la memoria y apropia el legado cultural.</p>
+            </div>
+            <div class="cell" data-dim="diferencias">
+              <h3>Diferencia crítica</h3>
+              <p>Centrado en la interiorización profunda del saber y la formación integral de la razón humana.</p>
+            </div>
+          </div>
+          <div class="model-links">
+            <a href="https://youtu.be/n9E1jKeLSIg" target="_blank" rel="noopener noreferrer">Ver: Modelo pedagógico tradicional</a>
+            <a href="https://youtu.be/hnsV-K2hTfA" target="_blank" rel="noopener noreferrer">Ver: características del modelo</a>
+          </div>
+        </article>
+
+        <article class="model cond" id="conductismo">
+          <header>
+            <p>Estímulo, respuesta, refuerzo</p>
+            <h2>Conductismo</h2>
+          </header>
+          <img class="photo" src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=1200&q=80" alt="Docente de pie frente a una pizarra, explicando un tema a su grupo">
+          <p class="motto">La conducta observable se diseña y se mide.</p>
+          <div class="cells">
+            <div class="cell" data-dim="memoria">
+              <h3>Concepción de la memoria</h3>
+              <p>Almacenamiento de asociaciones estímulo-respuesta fortalecidas mediante práctica y refuerzo.</p>
+            </div>
+            <div class="cell" data-dim="docente">
+              <h3>Rol del docente</h3>
+              <p>Ingeniero conductual que diseña contingencias, objetivos operacionales y refuerzos.</p>
+            </div>
+            <div class="cell" data-dim="estudiante">
+              <h3>Rol del estudiante</h3>
+              <p>Receptor activo en la ejecución de respuestas observables ante estímulos programados.</p>
+            </div>
+            <div class="cell" data-dim="diferencias">
+              <h3>Diferencia crítica</h3>
+              <p>Centrado en la modificación medible de la conducta externa y el control ambiental del aula.</p>
+            </div>
+          </div>
+          <div class="model-links">
+            <a href="https://youtu.be/qZq3mDwiw_I" target="_blank" rel="noopener noreferrer">Ver: qué es el conductismo</a>
+          </div>
+        </article>
+
+        <article class="model cone" id="conectivismo">
+          <header>
+            <p>Cognición distribuida</p>
+            <h2>Conectivismo</h2>
+          </header>
+          <img class="photo" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Grupo de estudiantes en torno a una mesa, trabajando juntos con un computador portátil">
+          <p class="motto">Saber es encontrar el nodo, no solo retener el dato.</p>
+          <div class="cells">
+            <div class="cell" data-dim="memoria">
+              <h3>Concepción de la memoria</h3>
+              <p>Distribuida en redes y dispositivos externos; prima saber localizar el nodo sobre retener el dato.</p>
+            </div>
+            <div class="cell" data-dim="docente">
+              <h3>Rol del docente</h3>
+              <p>Curador de entornos digitales, facilitador de nodos y orientador en redes de información.</p>
+            </div>
+            <div class="cell" data-dim="estudiante">
+              <h3>Rol del estudiante</h3>
+              <p>Nodo autónomo que navega, filtra, conecta y actualiza información en ecosistemas digitales.</p>
+            </div>
+            <div class="cell" data-dim="diferencias">
+              <h3>Diferencia crítica</h3>
+              <p>Centrado en la conectividad tecnológica, la fluidez del dato y la cognición distribuida externa.</p>
+            </div>
+          </div>
+          <div class="model-links">
+            <a href="https://youtu.be/kuoqIGknqZk" target="_blank" rel="noopener noreferrer">Ver: conectivismo en la era digital</a>
+          </div>
+        </article>
+      </div>
+
+      <aside class="shared">
+        <span>Similitud clave</span>
+        <div>
+          <p>Los tres modelos reconocen que el aprendizaje requiere organización sistemática —curricular, programada o en red— y rechazan dejar al estudiante abandonado a la pura improvisación sin estructura.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SECCIÓN 2: EVIDENCIAS PEDAGÓGICAS EN EL AULA (WHATSAPP: VIDEOS E IMÁGENES) -->
+    <section id="evidencias" aria-labelledby="evidencias-title">
+      <p class="section-kicker">Evidencias pedagógicas en el aula</p>
+      <h2 class="block-title" id="evidencias-title">Registro audiovisual y fotográfico: La memoria en acción</h2>
+      <p class="hint">Experiencias y talleres de aula desarrollados bajo la orientación de la docente Carolina Méndez Valcárcel en las instituciones de Motavita y Samacá. Evidencia práctica de la memoria viva, la oralidad, la ejercitación cooperativa y el arraigo contextual.</p>
+
+      <div class="evidencias-wrapper">
+        <div class="media-filter-bar" role="toolbar" aria-label="Filtrar tipo de evidencia">
+          <p>Mostrar:</p>
+          <button type="button" class="media-btn" data-media-filter="all" aria-pressed="true">Todos los registros (6)</button>
+          <button type="button" class="media-btn" data-media-filter="videos" aria-pressed="false">Videos de aula (2)</button>
+          <button type="button" class="media-btn" data-media-filter="photos" aria-pressed="false">Galería fotográfica (4)</button>
+        </div>
+
+        <!-- Grupo de Videos -->
+        <div class="videos-section media-group" data-media-type="videos">
+          <div class="sub-section-title">
+            <span>Registro audiovisual en el aula</span>
+            <span class="count-badge">2 Videos de aula</span>
+          </div>
+          <div class="videos-grid">
+            <!-- Video 1 -->
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" playsinline>
+                  <source src="WhatsApp%20Video%202026-11-22%20at%209.12.59%20PM.mp4" type="video/mp4">
+                  Tu navegador no soporta la reproducción de video HTML5.
+                </video>
+              </div>
+              <div class="video-info">
+                <span class="tag trad">Tradicional · Declamación y Memoria Oral</span>
+                <h3>La palabra viva y la emoción en escena</h3>
+                <p>Estudiante interpretando una pieza lírica y teatral al aire libre con apoyo escenográfico. La emoción y la dramatización operan como detonadores mnemotécnicos que consolidan la memoria a largo plazo (McGaugh, 2004).</p>
+                <div class="video-badge-bar">
+                  <span><strong>Duración:</strong> 54 segundos</span>
+                  <span>Espacio pedagógico al aire libre</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Video 2 -->
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" playsinline>
+                  <source src="WhatsApp%20Video%202026-11-22%20at%209.13.57%20PM.mp4" type="video/mp4">
+                  Tu navegador no soporta la reproducción de video HTML5.
+                </video>
+              </div>
+              <div class="video-info">
+                <span class="tag cond">Cognición y Conducta · Estructuración Lingüística</span>
+                <h3>Manipulación activa y memoria de trabajo</h3>
+                <p>Estudiantes ensamblando cooperativamente tiras sintácticas y léxicas. La automatización de esquemas gramaticales y la ejercitación guiada liberan la atención hacia la resolución de problemas comunicativos (Sweller et al., 2011).</p>
+                <div class="video-badge-bar">
+                  <span><strong>Duración:</strong> 19 segundos</span>
+                  <span>Trabajo cooperativo en mesa</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Grupo de Fotos -->
+        <div class="photos-section media-group" data-media-type="photos">
+          <div class="sub-section-title">
+            <span>Galería fotográfica de experiencias</span>
+            <span class="count-badge">4 Fotografías</span>
+          </div>
+          <p class="hint" style="margin-top: -6px; margin-bottom: 14px;">Haz clic en cualquier imagen para abrirla en alta resolución con su descripción completa.</p>
+
+          <div class="photos-grid">
+            <!-- Foto 1 -->
+            <div class="photo-card" tabindex="0" role="button" aria-label="Abrir imagen de Cartelera biográfica en red" data-img-src="WhatsApp%20Image%202026-11-22%20at%209.13.56%20PM.jpeg" data-img-tag="Conectivismo · Red Conceptual" data-img-tag-class="cone" data-img-title="Cartelera biográfica: El perfil en formato de red" data-img-desc="Estudiantes apropiándose creativamente de la estructura de perfiles contemporáneos (Facebook) para sintetizar trayectorias históricas y biográficas. Combina el lenguaje relacional de la red con la rigurosidad conceptual disciplinar.">
+              <div class="photo-thumb-container">
+                <img src="WhatsApp%20Image%202026-11-22%20at%209.13.56%20PM.jpeg" alt="Estudiantes en el aula con cartelera formato red social">
+                <span class="photo-zoom-badge">Ampliar 🔍</span>
+              </div>
+              <div class="photo-details">
+                <span class="tag cone">Conectivismo · Red Conceptual</span>
+                <h3>El perfil en formato de red</h3>
+                <p>Apropiación de formatos relacionales para sintetizar trayectorias biográficas e históricas.</p>
+              </div>
+            </div>
+
+            <!-- Foto 2 -->
+            <div class="photo-card" tabindex="0" role="button" aria-label="Abrir imagen de Taller vivencial con elementos del entorno" data-img-src="WhatsApp%20Image%202026-11-22%20at%209.13.56%20PM%20(1).jpeg" data-img-tag="Tradición · Memoria Material" data-img-tag-class="trad" data-img-title="Taller de campo y modelado con tierra en Motavita" data-img-desc="Actividad vivencial con barro, moldes y elementos naturales. En consonancia con la experiencia docente en Motavita, el aprendizaje no florece en el vacío: requiere el sustrato material y la experiencia sensorial para cimentar el conocimiento duradero.">
+              <div class="photo-thumb-container">
+                <img src="WhatsApp%20Image%202026-11-22%20at%209.13.56%20PM%20(1).jpeg" alt="Estudiantes trabajando con barro y moldes en zona rural">
+                <span class="photo-zoom-badge">Ampliar 🔍</span>
+              </div>
+              <div class="photo-details">
+                <span class="tag trad">Tradición · Memoria Material</span>
+                <h3>Modelado y memoria del entorno</h3>
+                <p>Práctica vivencial con barro en Motavita: arraigo material y memoria sensorial compartida.</p>
+              </div>
+            </div>
+
+            <!-- Foto 3 -->
+            <div class="photo-card" tabindex="0" role="button" aria-label="Abrir imagen de Sustentación cartográfica en Samacá" data-img-src="WhatsApp%20Image%202026-11-22%20at%209.13.57%20PM.jpeg" data-img-tag="Tradicional · Aula y Disciplina" data-img-tag-class="trad" data-img-title="Sustentación cartográfica en Samacá" data-img-desc="Institución Educativa Técnica Nacionalizada de Samacá: estudiantes exponiendo frente a la cartelera con el mapa mundial y guías de trabajo. La voz y la guía estructurada del docente orientan la interiorización del saber espacial y geográfico.">
+              <div class="photo-thumb-container">
+                <img src="WhatsApp%20Image%202026-11-22%20at%209.13.57%20PM.jpeg" alt="Aula de la Institución Educativa Técnica Nacionalizada de Samacá">
+                <span class="photo-zoom-badge">Ampliar 🔍</span>
+              </div>
+              <div class="photo-details">
+                <span class="tag trad">Tradicional · Aula y Disciplina</span>
+                <h3>Cartografía en Samacá</h3>
+                <p>I.E. Técnica Nacionalizada de Samacá: sustentación grupal y esquematización cartográfica.</p>
+              </div>
+            </div>
+
+            <!-- Foto 4 -->
+            <div class="photo-card" tabindex="0" role="button" aria-label="Abrir imagen de Socialización en mesa redonda" data-img-src="WhatsApp%20Image%202026-11-22%20at%209.13.57%20PM%20(1).jpeg" data-img-tag="Conectivismo · Diálogo Colectivo" data-img-tag-class="cone" data-img-title="Socialización en mesa redonda y sustentación oral" data-img-desc="Disposición circular en el salón para la sustentación y el debate activo frente al grupo. La práctica de recuperación oral y la argumentación entre pares fortalecen y modifican la huella de memoria (Roediger y Butler, 2011).">
+              <div class="photo-thumb-container">
+                <img src="WhatsApp%20Image%202026-11-22%20at%209.13.57%20PM%20(1).jpeg" alt="Estudiantes en círculo escuchando la sustentación de una compañera">
+                <span class="photo-zoom-badge">Ampliar 🔍</span>
+              </div>
+              <div class="photo-details">
+                <span class="tag cone">Conectivismo · Diálogo Colectivo</span>
+                <h3>Debate y sustentación oral</h3>
+                <p>Socialización circular ante el aula: recuperación activa y argumentación entre pares.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Lightbox para fotos -->
+    <div id="lightbox-modal" class="lightbox-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualizador de fotografía en alta resolución">
+      <div class="lightbox-box">
+        <button type="button" class="lightbox-close-btn" id="lightbox-close" aria-label="Cerrar vista ampliada">✕</button>
+        <div class="lightbox-photo-wrap">
+          <img id="lightbox-img" src="" alt="">
+        </div>
+        <div class="lightbox-info">
+          <span id="lightbox-tag" class="tag"></span>
+          <h3 id="lightbox-title"></h3>
+          <p id="lightbox-desc"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: TEXTO COMPLETO DEL ENSAYO "EL CIMIENTO OLVIDADO EN LA EDUCACIÓN" -->
+    <section id="ensayo-completo" aria-labelledby="ensayo-title">
+      <div class="essay-card">
+        <header class="essay-header-block">
+          <p class="eyebrow">Texto íntegro del ensayo académico</p>
+          <h2 class="essay-main-title" id="ensayo-title">El cimiento olvidado en la educación: Polifonía fragmmentada en el saber pedagógico</h2>
+          <div class="essay-byline-bar">
+            <span class="byline-tag">Autoría docente</span>
+            <span class="byline-author">Carolina Méndez Valcárcel</span>
+            <span class="byline-location">· Reflexión pedagógica y contrastación teórica (Motavita / Samacá)</span>
+          </div>
+        </header>
+
+        <article class="essay-article-body">
+          <h3 class="essay-subheading">I. La memoria como cimiento y la realidad del aula</h3>
+          <p class="essay-lead-para">Con frecuencia, el modelo pedagógico tradicional aparece retratado como un vestigio rígido, enemigo de la creatividad y ajeno a la sensibilidad . Pero cuando el péndulo se va al otro extremo y la transmisión estructurada del saber empieza a mirarse con desconfianza, el aula corre el riesgo de quedarse sin contenido que pensar.</p>
+          <p>Defender hoy lo mejor de la tradición no es aplaudir el autoritarismo ni la repetición sin sentido, mucho menos ideas como la letra con sangre entra. Es rescatar su columna vertebral: la disciplina intelectual, la voz experta del docente y el cultivo cuidadoso de la memoria como cimiento para pensar con autonomía frente a los excesos de inmediatez digital.</p>
+          <p>Para un docente que camina los salones en un municipio como Motavita, la realidad del aula enseña que el conocimiento no florece en el vacío, sino que requiere un sustrato  sólido y arraigado que solo la memoria humana estructurada puede proveer. El presente ensayo defiende el valor de la memoria  y la enseñanza tradicional, constrastandola con el conductismo y conectivismo.</p>
+
+          <div class="essay-pullquote">
+            <blockquote>«Devolverle al estudiante esas herramientas internas es, en el fondo, un acto de emancipación y no de encierro.»</blockquote>
+            <cite>Kirschner, Sweller & Clark (2006)</cite>
+          </div>
+
+          <h3 class="essay-subheading">II. Aportes de la ciencia cognitiva: esquemas y memoria de trabajo</h3>
+          <p>Nadie critica lo que no conoce ni conecta ideas en el vacío. Kirschner et al. (2006) advierten que las propuestas de descubrimiento con muy poca guía sobrecargan una memoria de trabajo limitada cuando aún no existen esquemas sólidos en la memoria a largo plazo. Devolverle al estudiante esas herramientas internas es, en el fondo, un acto de emancipación y no de encierro.</p>
+          <p>Aquí conviene una aclaración. La memoria que merece defenderse no es la del recitado mecánico, sino una memoria de calidad, la que nace de experiencias significativas y permanece porque tuvo sentido. Aprender de memoria, entendido así, se parece menos a copiar una lista y más a sembrar un recuerdo que más adelante pueda brotar.</p>
+          <p>A la luz de estas consideraciones ,la ciencia cognitiva ofrece pistas sobre cómo ocurre esto. Sweller et al. (2011) explican que el aprendizaje profundo aparece cuando la información nueva se integra y se automatiza en la memoria a largo plazo, y así libera atención para resolver problemas complejos. Dominar de memoria una estructura gramatical, un principio físico o una tabla numérica deja a la mente con las manos libres para formular hipótesis, descubrir contradicciones y crear metáforas propias.</p>
+
+          <div class="essay-pullquote">
+            <blockquote>«Dominar de memoria una estructura gramatical, un principio físico o una tabla numérica deja a la mente con las manos libres para formular hipótesis, descubrir contradicciones y crear metáforas propias.»</blockquote>
+            <cite>Sweller, Ayres & Kalyuga (2011)</cite>
+          </div>
+
+          <p>Ese recuerdo, además, se fortalece cuando se le invoca. Roediger y Butler (2011) muestran que recuperar lo aprendido no solo mide la huella: la modifica y la vuelve más útil para situaciones nuevas. Bjork y Bjork (2011) añaden que cierto esfuerzo, bien dosificado, hace el recuerdo más duradero. La lección magistral, la lectura atenta y la ejercitación guiada funcionan entonces como el cincel que da forma a esa capacidad.</p>
+
+          <h3 class="essay-subheading">III. El detonador pedagógico y la memoria del oficio docente</h3>
+          <p>¿Qué hace que un recuerdo se quede? Muchas veces, un detonador: una pregunta inesperada, una historia bien contada, una salida a la plaza del pueblo, un objeto que pasa de mano en mano, una canción que ata una fecha a una emoción. McGaugh (2004) documenta que las experiencias con carga emocional se consolidan con más fuerza, lo que ayuda a entender por qué ciertas clases se recuerdan años después y otras se evaporan al salir del salón.</p>
+          <p>En este punto donde cobra relevancia un buen detonador no reemplaza el contenido; lo vuelve memorable. Con él, el dato deja de ser una pieza suelta y se engancha a una vivencia, de modo que, cuando más adelante hace falta, el estudiante encuentra el camino de regreso.</p>
+
+          <div class="essay-pullquote">
+            <blockquote>«Un buen detonador no reemplaza el contenido; lo vuelve memorable. Con él, el dato deja de ser una pieza suelta y se engancha a una vivencia.»</blockquote>
+            <cite>McGaugh (2004) · Consolidación emocional de la memoria</cite>
+          </div>
+
+          <p>No obstante lo anterior, resulta imperativo matizar la defensa de que la memoria no es enemiga de la creatividad, sino su materia prima. Sin un repertorio vivo en la memoria a largo plazo, el pensamiento crítico se reduce a opinión superficial y la exploración autónoma pierde su brújula.</p>
+          <p>También el docente hace un trabajo de memoria, y de la mejor clase. Con los años recuerda qué ejemplo encendió una clase, qué pregunta desarmó un error frecuente, qué ritmo necesita cada grupo. Ese archivo de experiencias, filtrado por la práctica, es saber pedagógico construido en el aula, y se parece poco a un manual aprendido de memoria.</p>
+          <p>Para profundizar en esta perspectiva , Mishra y Koehler (2006) describen la integración entre conocimiento del contenido, de la pedagogía y del contexto como el núcleo de la buena enseñanza. Dicho de otro modo, el docente memorioso no repite: selecciona, adapta y diseña experiencias para que sus estudiantes también guarden algo que valga la pena. Cada detonador bien elegido es memoria del oficio puesta al servicio de la memoria de otros.</p>
+
+          <h3 class="essay-subheading">IV. Mente extendida y el «efecto Google»: la necesidad del criterio interno</h3>
+          <p>Frente a esta defensa aparece la teoría de la mente extendida, que sostiene que los procesos cognitivos no quedan confinados al cráneo, sino que se acoplan con cuadernos, libros, calculadoras y redes digitales que amplían la capacidad de almacenamiento (Clark, 2008). En el aula actual, explica bien por qué los estudiantes delegan parte de su retención en repositorios externos.</p>
+          <p>Ahora bien, ese acoplamiento solo produce conocimiento genuino cuando existe un núcleo interno capaz de interrogar, filtrar y dar sentido al archivo externo. Sparrow et al. (2011) observaron el llamado efecto Google: ante la certeza de que el dato seguirá disponible, las personas tienden a recordar dónde buscarlo más que el dato mismo. Si la escuela renuncia a entrenar la memoria interna porque todo está en la nube, el estudiante pierde el criterio para evaluar lo que consulta. La memoria extendida multiplica la inteligencia solo cuando descansa sobre una memoria biológica bien cultivada.</p>
+
+          <div class="essay-pullquote">
+            <blockquote>«La memoria extendida multiplica la inteligencia solo cuando descansa sobre una memoria biológica bien cultivada.»</blockquote>
+            <cite>Clark (2008) & Sparrow, Liu & Wegner (2011)</cite>
+          </div>
+
+          <h3 class="essay-subheading">V. Los tres paradigmas en el mapa pedagógico y digital</h3>
+          <p>Para ubicar esta reivindicación en el mapa pedagógico, vale contrastarla con dos paradigmas con los que suele confundirse o enfrentarse. El modelo tradicional y el conductismo coinciden en la secuencia estructurada de contenidos, la autoridad del docente y el valor de la práctica repetida, pero difieren en su finalidad: el conductismo entiende el aprendizaje como moldeamiento de conductas observables mediante estímulos y refuerzos (Schunk, 2012), mientras que el modelo tradicional humanista busca formar el carácter y la razón.</p>
+          <p>El conectivismo, por su parte, entiende el conocimiento como algo distribuido en redes de personas y recursos, también  en aprender como saber a conectar fuentes (Siemens, 2005).  Prioriza el acceso y la actualización sobre la retención interna, y se acerca a la memoria extendida. Aún así, hay algo en lo que coinciden: nadie logra conectar ideas de forma significativa si antes no tiene una base clara en su mente.</p>
+          <p>En el entorno digital, cada paradigma estrena una versión de sí mismo. El modelo tradicional se reinventa cuando la explicación del docente se vuelve una videolección breve que el estudiante pausa, repite y evoca con un cuestionario de recuperación (Roediger y Butler, 2011). El conductismo reaparece en las insignias, los puntos y la retroalimentación inmediata de las plataformas, que premian la práctica constante. El conectivismo, por su parte, florece en foros, mapas colaborativos y comunidades donde el saber circula entre personas y recursos conectados (Siemens, 2005).  La pantalla cambia el canal, pero no la necesidad de fondo: sin una memoria que dé sentido a lo que circula, ni el video, ni la insignia, ni la red alcanzan a convertirse en saber.</p>
+
+          <!-- Enlace directo al cuadro comparativo -->
+          <div class="essay-table-bridge">
+            <p><strong>Síntesis comparativa:</strong> Las concepciones de la memoria, el rol docente, el rol del estudiante, similitudes clave y diferencias críticas entre los tres modelos se encuentran detalladas en el cuadro interactivo.</p>
+            <a href="#cuadro-comparativo">Ver cuadro comparativo interactivo ↑</a>
+          </div>
+
+          <!-- Conclusión destacada -->
+          <div class="essay-closing-box">
+            <h4>Conclusión: raíces para desplegar alas</h4>
+            <p>Reivindicar la memoria no es dar la espalda a la sensibilidad ni a la tecnología. Es reconocer que el aula necesita raíces antes de desplegar alas. Cuando el docente enseña con rigor y pasión, y diseña experiencias que dejan huella, está ayudando a construir la soberanía interior del estudiante.</p>
+            <p>Las herramientas externas pueden guardar bibliotecas enteras, pero solo una mente educada, habitada por recuerdos vivos y conceptos bien cimentados, comprende el mundo, discierne la verdad y crea algo genuinamente humano.</p>
+          </div>
+
+          <!-- Referencias bibliográficas completas -->
+          <div class="essay-references-block">
+            <h3>Referencias bibliográficas</h3>
+            <ul class="references-list">
+              <li class="reference-entry">Bjork, E. L., & Bjork, R. A. (2011). Making things hard on yourself, but in a good way: Creating desirable difficulties to enhance learning. En M. A. Gernsbacher, R. W. Pew, L. M. Hough, & J. R. Pomerantz (Eds.), Psychology and the real world: Essays illustrating fundamental contributions to society (pp. 56–64). Worth Publishers.</li>
+              <li class="reference-entry">Clark, A. (2008). Supersizing the mind: Embodiment, action, and cognitive extension. Oxford University Press.</li>
+              <li class="reference-entry">Kirschner, P. A., Sweller, J., & Clark, R. E. (2006). Why minimal guidance during instruction does not work: An analysis of the failure of constructivist, discovery, problem-based, experiential, and inquiry-based teaching. Educational Psychologist, 41(2), 75–86.</li>
+              <li class="reference-entry">McGaugh, J. L. (2004). The amygdala modulates the consolidation of memories of emotionally arousing experiences. Annual Review of Neuroscience, 27, 1–28.</li>
+              <li class="reference-entry">Mishra, P., & Koehler, M. J. (2006). Technological pedagogical content knowledge: A framework for teacher knowledge. Teachers College Record, 108(6), 1017–1054.</li>
+              <li class="reference-entry">Roediger, H. L., III, & Butler, A. C. (2011). The critical role of retrieval practice in long-term retention. Trends in Cognitive Sciences, 15(1), 20–27.</li>
+              <li class="reference-entry">Schunk, D. H. (2012). Teorías del aprendizaje: Una perspectiva educativa (6.ª ed.). Pearson Educación.</li>
+              <li class="reference-entry">Siemens, G. (2005). Connectivism: A learning theory for the digital age. International Journal of Instructional Technology and Distance Learning, 2(1), 3–10.</li>
+              <li class="reference-entry">Sparrow, B., Liu, J., & Wegner, D. M. (2011). Google effects on memory: Cognitive consequences of having information at our fingertips. Science, 333(6043), 776–778.</li>
+              <li class="reference-entry">Sweller, J., Ayres, P., & Kalyuga, S. (2011). Cognitive load theory. Springer.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: CAJA DE VIDEOS YOUTUBE (EXISTENTE) -->
+    <section id="videos" aria-labelledby="videos-title">
+      <p class="section-kicker">Caja de videos complementarios</p>
+      <h2 class="block-title" id="videos-title">Un clic abre la clase en YouTube</h2>
+      <p class="hint">Cada recuadro es un enlace externo. Al hacer clic sales hacia el video correspondiente en YouTube.</p>
+      <div class="video-box">
+        <div class="video-grid">
+          <a class="video-card-yt" href="https://youtu.be/n9E1jKeLSIg" target="_blank" rel="noopener noreferrer">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/n9E1jKeLSIg/hqdefault.jpg" alt="">
+              <span class="play">Abrir</span>
+            </div>
+            <div class="meta">
+              <span class="tag trad">Tradicional</span>
+              <strong>Modelo pedagógico tradicional</strong>
+              <em>Pedagogía en Corto</em>
+            </div>
+          </a>
+          <a class="video-card-yt" href="https://youtu.be/hnsV-K2hTfA" target="_blank" rel="noopener noreferrer">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/hnsV-K2hTfA/hqdefault.jpg" alt="">
+              <span class="play">Abrir</span>
+            </div>
+            <div class="meta">
+              <span class="tag trad">Tradicional</span>
+              <strong>Qué es el modelo pedagógico tradicional y cuáles son sus características</strong>
+              <em>Astraway</em>
+            </div>
+          </a>
+          <a class="video-card-yt" href="https://youtu.be/qZq3mDwiw_I" target="_blank" rel="noopener noreferrer">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/qZq3mDwiw_I/hqdefault.jpg" alt="">
+              <span class="play">Abrir</span>
+            </div>
+            <div class="meta">
+              <span class="tag cond">Conductismo</span>
+              <strong>Qué es el conductismo: orígenes, autores y su legado en la educación</strong>
+              <em>Pedagogía Digital</em>
+            </div>
+          </a>
+          <a class="video-card-yt" href="https://youtu.be/kuoqIGknqZk" target="_blank" rel="noopener noreferrer">
+            <div class="thumb">
+              <img src="https://i.ytimg.com/vi/kuoqIGknqZk/hqdefault.jpg" alt="">
+              <span class="play">Abrir</span>
+            </div>
+            <div class="meta">
+              <span class="tag cone">Conectivismo</span>
+              <strong>Conectivismo: la teoría de aprendizaje para la era digital</strong>
+              <em>Pedagogía Digital</em>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: LECTURA COMPLEMENTARIA (PDF EXISTENTE) -->
+    <section id="lectura" aria-labelledby="pdf-title">
+      <p class="section-kicker">Lectura complementaria</p>
+      <div class="pdf-layout">
+        <div class="pdf-copy">
+          <h2 id="pdf-title">Previsualización del PDF</h2>
+          <p>Artículo alojado en Ciencia Cognitiva. Puedes leerlo aquí mismo o abrirlo en otra pestaña.</p>
+          <p><a class="file" href="https://www.cienciacognitiva.org/files/2011-4.pdf" target="_blank" rel="noopener noreferrer">Abrir 2011-4.pdf</a></p>
+          <p class="hint">Fuente: cienciacognitiva.org</p>
+        </div>
+        <div class="frame">
+          <iframe title="Previsualización del PDF 2011-4 de Ciencia Cognitiva" src="https://www.cienciacognitiva.org/files/2011-4.pdf"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-left">
+          <p><strong>Síntesis visual y ensayo pedagógico:</strong> Cuadro comparativo entre el modelo tradicional, el conductismo y el conectivismo (concepción de la memoria, rol del docente, rol del estudiante, similitud clave y diferencias críticas), articulado con el ensayo <em>«El cimiento olvidado en la educación: Polifonía fragmmentada en el saber pedagógico»</em> y el registro de evidencias de aula.</p>
+        </div>
+        <div class="footer-right">
+          <p><strong>Docente: Carolina Méndez Valcárcel</strong><br>
+          Práctica docente y contextualización pedagógica · Boyacá</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 1. Filtrado interactivo de dimensiones en el cuadro comparativo
+    const buttons = document.querySelectorAll(".filters button");
+    const status = document.getElementById("filter-status");
+    const labels = {
+      todas: "El cuadro completo está visible.",
+      memoria: "Resaltada: concepción de la memoria en los tres modelos.",
+      docente: "Resaltado: rol del docente en los tres modelos.",
+      estudiante: "Resaltado: rol del estudiante en los tres modelos.",
+      diferencias: "Resaltadas: diferencias críticas entre los tres modelos."
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const dim = button.dataset.dim;
+        document.body.dataset.focus = dim;
+        buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        status.textContent = labels[dim];
+      });
+    });
+
+    // 2. Filtrado de evidencias de aula (Todos / Videos / Fotos)
+    const mediaBtns = document.querySelectorAll(".media-filter-bar button");
+    const mediaGroups = document.querySelectorAll(".media-group");
+
+    mediaBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.mediaFilter;
+        mediaBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+
+        mediaGroups.forEach((group) => {
+          if (filter === "all" || group.dataset.mediaType === filter) {
+            group.style.display = "";
+          } else {
+            group.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // 3. Modal Lightbox para visualización de fotografías
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxTag = document.getElementById("lightbox-tag");
+    const lightboxTitle = document.getElementById("lightbox-title");
+    const lightboxDesc = document.getElementById("lightbox-desc");
+    const photoCards = document.querySelectorAll(".photo-card");
+
+    function openLightbox(card) {
+      const src = card.dataset.imgSrc;
+      const tag = card.dataset.imgTag;
+      const tagClass = card.dataset.imgTagClass || "trad";
+      const title = card.dataset.imgTitle;
+      const desc = card.dataset.imgDesc;
+
+      lightboxImg.src = src;
+      lightboxImg.alt = title;
+      lightboxTag.textContent = tag;
+      lightboxTag.className = "tag " + tagClass;
+      lightboxTitle.textContent = title;
+      lightboxDesc.textContent = desc;
+
+      lightboxModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightboxModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lightboxImg.src = "";
+    }
+
+    photoCards.forEach((card) => {
+      card.addEventListener("click", () => openLightbox(card));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLightbox(card);
+        }
+      });
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightboxModal.addEventListener("click", (e) => {
+      if (e.target === lightboxModal) closeLightbox();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightboxModal.getAttribute("aria-hidden") === "false") {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
